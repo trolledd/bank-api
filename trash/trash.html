@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bank API Utility</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <div class="container-fluid px-0">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-3">
+            <a class="navbar-brand" href="#">API</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+          
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                  <a class="nav-link" href="#">Home</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link active" href="#">Bank Records</a>
+                </li>
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Dropdown
+                  </a>
+                  <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="#">Action</a>
+                    <a class="dropdown-item" href="#">Another action</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="#">Something else here</a>
+                  </div>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link disabled" href="#">Disabled</a>
+                </li>
+              </ul>
+            </div>
+          </nav>
+      </div>
+    <div class="container" id="container-main">
+        <div id="bank-records-main">
+        <form class="pt-5 needs-validation" id="bank-form" name="bank-form" action="#" novalidate onsubmit="return false">
+            <div class="mb-3">
+              <label for="nationid" class="form-label">Nation ID *</label>
+              <input type="number" class="form-control" id="nationid" placeholder="Nation ID" aria-describedby="nationid" pattern="^\d+$" required>
+              <div class="valid-feedback">
+                Looks good!
+              </div>
+              <div class="invalid-feedback">
+                Please enter a nation ID.
+              </div>
+            </div>
+            <div class="mb-3">
+                <label for="allianceid" class="form-label">Alliance ID (Optional. If empty, it will be Dark Brotherhood by default.)</label>
+                <input type="number" class="form-control is-valid" id="allianceid" placeholder="Alliance ID" aria-describedby="allianceid">
+              </div>
+            <div class="mb-3">
+              <label for="apikey" class="form-label">API Key (Optional, unless my API Key run out of requests)</label>
+              <input type="password" class="form-control is-valid" placeholder="API Key" id="apikey">
+              <div id="apihelp" class="form-text">We'll never share your API Key with anyone else.</div>
+              <div class="invalid-feedback">
+                Please enter an API Key.
+              </div>
+            </div>
+            <button type="submit" id="btn-submit" class="btn btn-outline-primary">Submit</button>
+          </form>
+
+          <div class="spinner-grow mt-2 d-none" role="status">
+        </div>
+        </div>
+          
+      </div>
+</body>
+<script>
+    // Example starter JavaScript for disabling form submissions if there are invalid fields
+(function () {
+  'use strict'
+
+  // Fetch all the forms we want to apply custom Bootstrap validation styles to
+  var forms = document.querySelectorAll('.needs-validation')
+
+  // Loop over them and prevent submission
+  Array.prototype.slice.call(forms)
+    .forEach(function (form) {
+      form.addEventListener('submit', function (event) {
+        if (!form.checkValidity()) {
+          event.preventDefault()
+          event.stopPropagation()
+        }
+
+        form.classList.add('was-validated')
+      }, false)
+    })
+})()
+</script>
+</html>

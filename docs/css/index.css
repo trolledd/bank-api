@@ -1,0 +1,29 @@
+.carousel-caption {
+    background: rgba(0, 0, 0, 0.35);
+}
+
+.carousel-inner img {
+    width: auto;
+    height: 95vh;
+  }
+
+ /* spectre */
+/*   .navbar{
+    position:absolute;
+    width:100%;
+    z-index:10;
+    max-width:100%;
+    padding-left: 20px;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.navbar-brand{
+    color: white;
+} */
+
+/* a.active, a:active, a:focus, a:hover{
+    color: rgba(197, 198, 197);
+} */
+

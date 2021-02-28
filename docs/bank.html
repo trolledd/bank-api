@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bank API</title>
+
+  <!-- Bootstrap 5.0 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
+
+  <!-- Jquery -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+  <!-- Select2  -->
+  <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+  <!-- Index.css -->
+  <link href="css/bank.css" rel="stylesheet" />
+
+  <!-- Scripts -->
+  <script src="js/script.js" defer></script>
+
+  <!-- CSS -->
+  <link href="css/index.css" rel="stylesheet" />
+  <link href="css/nav.css" rel="stylesheet" />
+
+
+</head>
+<body>
+  <div class="container-fluid px-0">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">
+          <img src="img/pillar.png" class="d-block w-100" alt="..." style="color: white;">
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link" aria-current="page" href="index.html">Home</a>
+            </li>
+
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                APIs
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <li><a class="dropdown-item active" href="bank.html">Member Bank Records</a></li>
+                <li><a class="dropdown-item" href="#">Another action</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" href="#">Something else here</a></li>
+              </ul>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link" href="apiTimer.html">API Reset Timer</a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+            </li>
+          </ul>
+          <div class="navbar-section px-2">
+            <a href="#" class="btn btn-link">Twitter</a>
+            <a href="https://github.com/trolledd/bank-api" target="_blank" class="btn btn-link">GitHub</a>
+          </div>
+        </div>
+      </div>
+    </nav>
+  </div>
+  <div class="container" id="container-main">
+
+    <div id="bank-records-main">
+    <form class="pt-5 needs-validation" id="bank-form" name="bank-form" action="#" novalidate onsubmit="return false">
+        <div class="mb-3">
+          <label for="nationid" class="form-label">Nation ID *</label>
+          <input type="number" class="form-control" id="nationid" placeholder="Nation ID" aria-describedby="nationid" pattern="^\d+$" required>
+          <div class="valid-feedback">
+            Looks good!
+          </div>
+          <div class="invalid-feedback">
+            Please enter a nation ID.
+          </div>
+        </div>
+        <div class="mb-3">
+            <label for="allianceid" class="form-label">Alliance ID (Optional. If empty, it will be Dark Brotherhood by default.)</label>
+            <select class="js-example-basic-single" id="allianceid" style="width: 100%;" name="allianceid">
+              <option value="4221" disabled selected>Choose your alliance</option>
+              <option value="4221">Dark Brotherhood</option>
+              <option value="790">Rose</option>
+              <option value="1584">The Knights Radiant</option>
+              <option value="831">The Syndicate</option>
+              <option value="5875">The Immortals</option>
+              <option value="1023">The Fighting Pacifists</option>
+              <option value="4937">Camelot</option>
+              <option value="3339">Grumpy Old Bastards</option>
+              <option value="3427">The Commonwealth</option>
+              <option value="7452">Children of the Light</option>
+              <option value="619">Guardian</option>
+              <option value="6126">The Lost Empire</option>
+              <option value="7450">Eclipse</option>
+              <option value="1210">World Task Force</option>
+              <option value="7413">Error 404</option>
+              <option value="8243">The Order</option>
+              <option value="1246">Farkistan</option>
+              <option value="4648">Aurora</option>
+              <option value="5722">The Ampersand</option>
+              <option value="5049">Carthago</option>
+              <option value="1280">Alpha</option>
+              <option value="6877">Advanced Syndicalist Mechanics</option>
+              <option value="5476">Weebunism</option>
+              <option value="622">United Purple Nations</option>
+              <option value="877">Black Knights</option>
+              <option value="4150">Yarr</option>
+              <option value="2358">Polaris</option>
+              <option value="3683">House Stark</option>
+              <option value="2510">Order of the White Rose</option>
+              <option value="4638">The Federation</option>
+              <option value="5326">The United Armies</option>
+              <option value="7306">Atlas Technologies</option>
+              <option value="4729">Church Of Atom</option>
+              <option value="4829">The Enterprise</option>
+              <option value="4124">Knights Templar</option>
+              <option value="1742">The Wei</option>
+              <option value="7346">Chocolate Castle</option>
+              <option value="6215">Soldiers of Liberty</option>
+              <option value="2594">United Socialist Nations</option>
+              <option value="5012">Respublica Romana</option>
+              <option value="7527">Oceania</option>
+              <option value="7635">Black Skies</option>
+              <option value="8100">The Company</option>
+              <option value="913">Arrgh</option>
+              <option value="5481">Schrute Farms</option>
+              <option value="7580">The Legion</option>
+              <option value="7540">The Rohirrim</option>
+              <option value="615">Seven Kingdoms</option>
+              <option value="7094">The Coal Mines</option>
+              <option value="7750">United Ummah</option>
+              <option value="7484">Global Alliance & Treaty Organization</option>
+              <option value="7381">Amarr Empire</option>
+              <option value="8252">Brotherhood Family</option>
+              <option value="7427">Stratosphere Marine Corps</option>
+              <option value="7659">Federation of Soviet Republics</option>
+              <option value="7380">The Greater Unitary Republic</option>
+              <option value="7866">Nova Roma</option>
+              <option value="7642">The Lost Legion</option>
+              <option value="4271">Oblivion</option>
+              <option value="7531">Convent of Atom</option>
+              <option value="7989">Corporate Union</option>
+              <option value="8111">Golden Dawn</option>
+              <option value="7647">micro pockyclypse</option>
+              <option value="8236">Name Withheld</option>
+              <option value="7536">Atlantian Council</option>
+              <option value="6703">TheNorthWesternSouthRegionofthefarEast</option>
+              <option value="8173">Arsenal</option>
+              <option value="7707">Dragon Confederacy</option>
+              <option value="7674">The Mortals</option>
+              <option value="8289">The Cult of Osiris</option>
+              <option value="7399">Rothschild Family</option>
+              <option value="5658">Unforgiven Legion</option>
+              <option value="8178">Warriors of Valhalla</option>
+              <option value="7560">Mandalore</option>
+              <option value="770">Taith</option>
+              <option value="8123">The Jedi Order</option>
+              <option value="1634">Solar Knights</option>
+              <option value="4397">Strickland Propane</option>
+              <option value="7570">Prima Victoria</option>
+              <option value="7938">Federal Cooperative Republic</option>
+              <option value="7651">Concord</option>
+              <option value="7571">CENTRELINK AAA</option>
+              <option value="8256">European Union</option>
+              <option value="8207">The Monarchy</option>
+              <option value="8280">Diamond City</option>
+              <option value="5039">Goon Squad</option>
+              <option value="7920">Prusso Roman Imperial Union</option>
+              <option value="8282">Antarctic Empire</option>
+              <option value="8161">Ethereal Gang</option>
+              <option value="7000">Banana Stand</option>
+              <option value="7719">SwingSet</option>
+              <option value="8246">The Abyss</option>
+              <option value="7283">The Void Touched</option>
+              <option value="7451">Crusaders of the Holy Boogaloo</option>
+              <option value="7815">99942 Apophis</option>
+              <option value="8145">FrenchM</option>
+              <option value="8254">Independent Republic of Orange Nations</option>
+              <option value="8261">The Dominion</option>
+              <option value="7857">United Federation of Canerica</option>
+              <option value="7111">Temple</option>
+              <option value="8306">Bonobo Bank Brigade</option>
+              <option value="7249">The Firm</option>
+              <option value="7915">Dual Suns</option>
+              <option value="4468">Purple Flower Garden</option>
+              <option value="7433">Almighty Corporation</option>
+              <option value="8154">Rockefeller Group</option>
+              <option value="8264">The Collective</option>
+              <option value="8201">DedSec</option>
+              <option value="8139">House Karstark</option>
+              <option value="7830">Benediximus</option>
+              <option value="7802">Human Over</option>
+              <option value="8043">Spank Bank</option>
+              <option value="8290">Creatio Ex Nihilo</option>
+              <option value="6143">Morningstar</option>
+              <option value="8171">The Black Death</option>
+              <option value="8204">Offshore</option>
+              <option value="7990">The Outhouse</option>
+              <option value="8065">Deez</option>
+              <option value="8225">The Phoenix Legion</option>
+              <option value="8302">Stable Foundation</option>
+              <option value="8190">Not Rohans Bank</option>
+              <option value="2082">New Pacific Order</option>
+              <option value="8148">Shuriken</option>
+              <option value="7994">Just Taiga</option>
+              <option value="8247">Basic Syndicalist Mechanics</option>
+              <option value="8010">Asylum</option>
+              <option value="5205">The Hanseatic League</option>
+              <option value="8202">Angry Horde of Steel</option>
+              <option value="7789">College of Winterhold</option>
+              <option value="8113">Providence</option>
+              <option value="8287">Arawra</option>
+              <option value="8275">Eastern Community</option>
+              <option value="8213">Order of Aster</option>
+              <option value="8283">Alcoholics Anonymous</option>
+              <option value="7891">PolarFreeze Warehouse 47</option>
+              <option value="4144">Akatsuki</option>
+              <option value="8259">Deep Intriguing Cool Kids</option>
+              <option value="7868">Vibe</option>
+              <option value="8094">The Disunited Armies</option>
+              <option value="8308">The Cave</option>
+              <option value="7565">negeri johor</option>
+              <option value="5608">Fix The Damn Game Sheepy</option>
+              <option value="8105">Confederate Nations of Orbis</option>
+              <option value="7598">New Cruor Federation</option>
+              <option value="7967">RunItUp</option>
+              <option value="7806">Neon Dystopia</option>
+              <option value="8300">BF Hood</option>
+              <option value="8126">The Grox</option>
+              <option value="8033">Krapmussmells</option>
+              <option value="8032">Gladiators</option>
+              <option value="8179">High Gods</option>
+              <option value="7902">Wigglytuffs Guild</option>
+              <option value="7559">The Crimson Order</option>
+              <option value="8146">The Squirrels</option>
+              <option value="7714">The Merchants Guild</option>
+              <option value="8041">Kebab Store</option>
+              <option value="8295">The Union of Democracy</option>
+              <option value="3554">One is the loneliest number</option>
+              <option value="8291">HammerFall</option>
+              <option value="7524">The United Republican Party</option>
+              <option value="8313">The Midas Group</option>
+              <option value="7853">Mythic</option>
+              <option value="8305">Forgiven Legion</option>
+              <option value="7803">Laffeys Lair</option>
+              <option value="7366">Parisian Commune</option>
+              <option value="7930">HYDRA</option>
+              <option value="8255">Space Monke</option>
+              <option value="8175">Nexus</option>
+              <option value="7787">Black and white</option>
+              <option value="7841">Nuka-Cola Bottling Company</option>
+              <option value="5436">The Global Union</option>
+              <option value="7956">The Federalist Union</option>
+              <option value="6718">Legio Christi</option>
+              <option value="3940">The United Empire of ZahAharon</option>
+              <option value="8274">Capi Hnizdo</option>
+              <option value="7564">The Livonian Confederation</option>
+              <option value="8214">United Communes of UMU</option>
+              <option value="7633">The Air Nomads</option>
+              <option value="8172">The Britlandish Union</option>
+              <option value="7757">Economica</option>
+              <option value="4623">The Empire of the Moonlit Sakura</option>
+              <option value="8296">DCC nation</option>
+              <option value="8298">Zamelot</option>
+              <option value="7703">Brotherhood of the Clouds</option>
+              <option value="8224">Transcontinental League</option>
+              <option value="8266">THE WORLD ORDER</option>
+              <option value="8059">The Forum Cause</option>
+              <option value="7053">The Imperium</option>
+              <option value="8234">Virtue</option>
+              <option value="8314">The Knights of the Blood Oath</option>
+              <option value="8216">The Kingdom of New Lamplight</option>
+              <option value="8307">Bulls of Hell</option>
+              <option value="5592">The Co-Prosperity Union</option>
+              <option value="623">Acadia</option>
+              <option value="8215">Unity</option>
+              <option value="8250">United Bonkers</option>
+              <option value="8263">The Royal Houses</option>
+              <option value="8080">Macedonia</option>
+              <option value="7562">GOONS</option>
+              <option value="8281">The Agricultural Federation</option>
+              <option value="7204">Elysium</option>
+              <option value="7765">The Bounty Hunters Guild</option>
+              <option value="6074">New Cornhusker Confederacy</option>
+              <option value="5267">United Maharlika Empire</option>
+              <option value="7545">Refugee Farmers</option>
+              <option value="6308">The Ascendant</option>
+              <option value="7933">Imperial Rome</option>
+              <option value="7931">The Imperial Federation</option>
+              <option value="8197">altra vez</option>
+              <option value="7698">NukaWorld</option>
+              <option value="8278">Imperial Army & Aerospace Forces</option>
+              <option value="8177">The poggers playground</option>
+              <option value="6076">Teutonic Order</option>
+              <option value="8248">The Infinite Empire</option>
+              <option value="8249">United Monarchies of Orbis</option>
+              <option value="4137">United Alliance for Freedom</option>
+              <option value="6675">Bird Weed</option>
+              <option value="8267">Alliance of Wild Classmates</option>
+              <option value="6680">The Panzer Elite</option>
+              <option value="8309">Shadowclaw</option>
+              <option value="7543">Ministry of Image</option>
+              <option value="7952">rally</option>
+              <option value="8304">OPU</option>
+              <option value="7997">Mothership Zeta</option>
+              <option value="8232">BaguetteM</option>
+              <option value="7870">The International Bloc</option>
+              <option value="7722">bright rays</option>
+              <option value="7756">The Archangels</option>
+              <option value="7758">District X</option>
+              <option value="8226">The 38th Legion</option>
+              <option value="7584">The Pow Pow squad</option>
+              <option value="7699">New World Order</option>
+              <option value="7901">The Intercontinental</option>
+              <option value="7025">The North Atlantic Empire</option>
+              <option value="6696">AVENGERS</option>
+              <option value="8233">Barbary Coast</option>
+              <option value="1896">Pantheon</option>
+              <option value="5455">Vanguard</option>
+              <option value="7387">The World Civility Org</option>
+              <option value="5735">Demacia</option>
+              <option value="7514">House of Ologies</option>
+              <option value="7995">Niflheim Empire</option>
+              <option value="7515">The Atlantians</option>
+              <option value="8272">ROARING REVELS</option>
+              <option value="7797">Holy Roman Empire</option>
+              <option value="7849">Orbital Bank</option>
+              <option value="8270">Wolfs Clan</option>
+              <option value="4205">Cosa Nostra</option>
+              <option value="7944">Acanthus</option>
+              <option value="8239">Federation of kaia</option>
+              <option value="7937">Concord Dawn System</option>
+              <option value="8136">United Contributes of North America</option>
+              <option value="8310">Gold Coast</option>
+              <option value="8223">Resistance Allegiance</option>
+              <option value="7032">UNITED NATIONS</option>
+              <option value="7516">NCR</option>
+              <option value="7904">rucker</option>
+              <option value="7548">The Syndication</option>
+              <option value="8027">The United Treaties</option>
+              <option value="7567">Central</option>
+              <option value="1723">TRUMP 2016</option>
+              <option value="5303">Peace</option>
+              <option value="7875">Codex Security</option>
+              <option value="8034">Global Peace Treaty Organization</option>
+              <option value="7749">Worksafe</option>
+              <option value="8294">The Secret Society</option>
+              <option value="8062">The Rooster</option>
+              <option value="7680">tt</option>
+              <option value="5121">Lannister Mausoleum</option>
+              <option value="6657">Catholicorum Coronatus</option>
+              <option value="7681">Union of Passive Nations</option>
+              <option value="6403">The Originals</option>
+              <option value="7939">Rebels</option>
+              <option value="7940">Bad Batch Entente</option>
+              <option value="7943">The Camel Lot</option>
+              <option value="7946">The Royal Commonwealth</option>
+              <option value="7692">PANDEMIC LEGION</option>
+              <option value="4878">The Boys</option>
+              <option value="8206">Alpha Centauri</option>
+              <option value="7183">Wizards Citadel</option>
+              <option value="7697">Wolves Den</option>
+              <option value="6676">Unitarian Group Alliance</option>
+              <option value="7704">boat</option>
+              <option value="7709">The Kings Empire</option>
+              <option value="7711">The Padamaians</option>
+              <option value="7712">The Confederation</option>
+              <option value="7970">Infamous</option>
+              <option value="4899">The Covenant</option>
+              <option value="7461">Ordo Draconis</option>
+              <option value="7983">Her Divine Imperial Majestys Throne</option>
+              <option value="7728">The Precipice</option>
+              <option value="7729">Hi5</option>
+              <option value="4149">Church of Spaceology</option>
+              <option value="7733">HORDE EMPIRE</option>
+              <option value="6198">The Red Banner</option>
+              <option value="5947">Major Leek Baseball</option>
+              <option value="7739">Tsuyoi</option>
+              <option value="7740">Just For Fun</option>
+              <option value="7485">The United Front</option>
+              <option value="7744">Collaboration of Socialist Entities</option>
+              <option value="8257">rose but better</option>
+              <option value="7234">Disciples of the Deathscythe</option>
+              <option value="6724">The norther hemisphere alliance</option>
+              <option value="7237">The Kree Empire</option>
+              <option value="7493">The Snow Knights</option>
+              <option value="7495">Sons of Anarchy</option>
+              <option value="6474">The Family</option>
+              <option value="7499">Agon</option>
+              <option value="5453">un -united nations</option>
+              <option value="5968">Green Protection Agency</option>
+              <option value="5214">Code of Honor</option>
+              <option value="866">Guardians of the Galaxy</option>
+              <option value="7266">Psi</option>
+              <option value="4451">Riad NWO</option>
+              <option value="7530">Union</option>
+              <option value="7277">Bilingual Baguettes</option>
+              <option value="8048">City Builders</option>
+              <option value="4209">The Scottish Empire</option>
+              <option value="5491">Si Hong</option>
+              <option value="7544">Laughing Coffin</option>
+              <option value="7800">Shadow Marauders</option>
+              <option value="7547">Komitet Gosudarstvennoy Bezopasnosti</option>
+              <option value="8315">Plague dr more like lame dr</option>
+              <option value="7804">Sakura Pact</option>
+              <option value="6270">The Warriors</option>
+              <option value="5767">Haven</option>
+              <option value="7561">New Ridge</option>
+              <option value="7817">Viridian Entente</option>
+              <option value="7818">Shu</option>
+              <option value="7820">Red Skies</option>
+              <option value="6285">Burger Union</option>
+              <option value="7568">KonoSuba</option>
+              <option value="6034">Mehh</option>
+              <option value="6035">The Int Defense and Economic Alliance</option>
+              <option value="7828">Europa</option>
+              <option value="7832">NATO</option>
+              <option value="6811">Middle Eastern Pact</option>
+              <option value="7587">Independent Allay</option>
+              <option value="7843">United and Prosperous</option>
+              <option value="5796">Atlantis</option>
+              <option value="7590">Shark Tank 2</option>
+              <option value="7591">The hand of Atom</option>
+              <option value="7848">Vibe Squad</option>
+              <option value="7594">The no tax alliance</option>
+              <option value="7599">The Holy Frog Empire</option>
+              <option value="5556">The Socialist State Alliance</option>
+              <option value="8120">The Japanese Trade Bloc</option>
+              <option value="7098">Jst Chilling</option>
+              <option value="7618">KALMAR UNION</option>
+              <option value="7619">Men of Honor</option>
+              <option value="7365">The Confederacy of Iron States</option>
+              <option value="7622">Northern Lights</option>
+              <option value="6088">Terminus Est</option>
+              <option value="7882">Tierra media</option>
+              <option value="6862">Attrition</option>
+              <option value="7375">The Roxchean Confederations</option>
+              <option value="7890">The Nations</option>
+              <option value="4567">The Golden Horde</option>
+              <option value="4568">Outer Heaven</option>
+              <option value="7641">united communist legion</option>
+              <option value="7645">The Freedom Empire</option>
+              <option value="7646">Samar</option>
+              <option value="5343">Kazoku</option>
+              <option value="7903">The Sea Of Meow</option>
+              <option value="7648">Verde</option>
+              <option value="4323">Horsemen</option>
+              <option value="7652">Delian League</option>
+              <option value="7908">Allgangs</option>
+              <option value="5618">The UnOriginals</option>
+              <option value="7668">LINEGANG</option>
+              <option value="7669">Balkan Alliance</option>
+              <option value="7421">CIA</option>
+              </select>
+
+          </div>
+        <div class="mb-3">
+          <label for="apikey" class="form-label">API Key (Optional, unless my API Key run out of requests)</label>
+          <input type="password" class="form-control is-valid" placeholder="API Key" id="apikey">
+          <div id="apihelp" class="form-text">We'll never share your API Key with anyone else.</div>
+          <div class="invalid-feedback">
+            Please enter an API Key.
+          </div>
+        </div>
+        <button type="submit" id="btn-submit" class="btn btn-outline-primary">Search</button>
+      </form>
+
+      <div class="spinner-grow mt-2 d-none" role="status">
+    </div>
+    </div>
+      
+  </div>
+</body>
+<script>
+  // Example starter JavaScript for disabling form submissions if there are invalid fields
+(function () {
+'use strict'
+
+// Fetch all the forms we want to apply custom Bootstrap validation styles to
+var forms = document.querySelectorAll('.needs-validation')
+
+// Loop over them and prevent submission
+Array.prototype.slice.call(forms)
+  .forEach(function (form) {
+    form.addEventListener('submit', function (event) {
+      if (!form.checkValidity()) {
+        event.preventDefault()
+        event.stopPropagation()
+      }
+
+      form.classList.add('was-validated')
+    }, false)
+  })
+})()
+</script>
+</html>

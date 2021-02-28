@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>P&W API - Main</title>
+
+
+  <!-- Spectre -->
+  <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre.min.css">
+  <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre-exp.min.css">
+  <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre-icons.min.css">
+  
+  <!-- Jquery -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+  <!-- CSS -->
+  <link href="css/index.css" rel="stylesheet" />
+
+
+</head>
+<body>
+<div class="container px-0">
+  <header class="navbar">
+    <section class="navbar-section">
+      <a href="bank.html" class="btn btn-link">APIs</a>
+      <a href="#" class="btn btn-link">Examples</a>
+    </section>
+    <section class="navbar-center">
+      <!-- centered logo or brand -->
+   <a href="index.html" class="btn btn-link"> 
+        <img class="img-responsive rounded" src="img/pillar.png" alt="macOS Yosemite Wallpaper">
+   </a> 
+      
+    </section>
+    <section class="navbar-section px-2">
+      <a href="#" class="btn btn-link">Twitter</a>
+      <a href="https://github.com/trolledd/bank-api" target="_blank" class="btn btn-link">GitHub</a>
+    </section>
+  </header>
+
+  <div class="carousel">
+    <!-- carousel locator -->
+    <input class="carousel-locator" id="slide-1" type="radio" name="carousel-radio" hidden="" checked="">
+    <input class="carousel-locator" id="slide-2" type="radio" name="carousel-radio" hidden="">
+    <input class="carousel-locator" id="slide-3" type="radio" name="carousel-radio" hidden="">
+    
+    <!-- carousel container -->
+    <div class="carousel-container">
+      <!-- carousel item -->
+      <figure class="carousel-item">
+        <label class="item-prev btn btn-action btn-lg" for="slide-3"><i class="icon icon-arrow-left"></i></label>
+        <label class="item-next btn btn-action btn-lg" for="slide-2"><i class="icon icon-arrow-right"></i></label>
+        <img class="img-responsive rounded" src="img/war.jpg" alt="macOS Yosemite Wallpaper">
+      </figure>
+      <figure class="carousel-item">
+        <label class="item-prev btn btn-action btn-lg" for="slide-1"><i class="icon icon-arrow-left"></i></label>
+        <label class="item-next btn btn-action btn-lg" for="slide-3"><i class="icon icon-arrow-right"></i></label>
+        <img class="img-responsive rounded" src="img/diplomacy.jpg" alt="macOS Yosemite Wallpaper">
+      </figure>
+      <figure class="carousel-item">
+        <label class="item-prev btn btn-action btn-lg" for="slide-2"><i class="icon icon-arrow-left"></i></label>
+        <label class="item-next btn btn-action btn-lg" for="slide-1"><i class="icon icon-arrow-right"></i></label>
+        <img class="img-responsive rounded" src="img/conquer.jpg" alt="macOS El Capitan Wallpaper">
+      </figure>
+    </div>
+
+    <!-- carousel navigation -->
+    <div class="carousel-nav">
+      <label class="nav-item text-hide c-hand" for="slide-1">1</label>
+      <label class="nav-item text-hide c-hand" for="slide-2">2</label>
+      <label class="nav-item text-hide c-hand" for="slide-3">3</label>
+    </div>
+  </div>
+</div>
+</body>
+</html>
