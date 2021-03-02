@@ -215,6 +215,7 @@ $(document).on('submit', '#bank-form', function () {
     $('#btn-submit').addClass('d-none');
     $('.spinner-grow').removeClass('d-none');
     $('#tableDiv').remove();
+    $('#bankTable').remove();
 
     //Overwrite default values
     input_nation_id = $('#nationid').val();

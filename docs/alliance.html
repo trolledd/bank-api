@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Bank API</title>
+  <title>Alliance API</title>
 
   <!-- Bootstrap 5.0 -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
@@ -26,7 +26,7 @@
   <link href="css/bank.css" rel="stylesheet" />
 
   <!-- Scripts -->
-  <script src="js/bank.js" defer></script>
+  <script src="js/alliance.js" defer></script>
 
   <!-- CSS -->
   <link href="css/index.css" rel="stylesheet" />
@@ -55,8 +55,8 @@
                 APIs
               </a>
               <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <li><a class="dropdown-item active" href="bank.html">Member Bank Records</a></li>
-                <li><a class="dropdown-item" href="alliance.html">Alliance Bank Records</a></li>
+                <li><a class="dropdown-item" href="bank.html">Member Bank Records</a></li>
+                <li><a class="dropdown-item active" href="alliance.html">Alliance Bank Records</a></li>
                 <li><hr class="dropdown-divider"></li>
                 <li><a class="dropdown-item" href="#">Something else here</a></li>
               </ul>
@@ -80,8 +80,8 @@
   </div>
   <div class="jumbotron jumbotron-fluid pt-5">
     <div class="container">
-      <h1 class="display-4 text-center">Bank Records of Alliance Member</h1>
-      <p class="lead text-center">This tallies the amount the member owes to the alliance. <strong>Positive means the amount owed to the alliance.</strong></p>
+      <h1 class="display-4 text-center">Alliance Bank Records</h1>
+      <p class="lead text-center">This tallies the amount all debts the alliance has towards its members. <strong>Positive means the amount owed to the alliance.</strong></p>
       <p class="text-center">Eg. John has 20000 Uranium in the records. This means John owes 20k uranium to the alliance.</p>
       <hr class="my-4">
     </div>
@@ -89,16 +89,6 @@
   <div class="container px-5 pb-3" id="container-main">
     <div class="pt-2" id="bank-records-main">
     <form class="needs-validation" id="bank-form" name="bank-form" action="#" novalidate onsubmit="return false">
-        <div class="mb-3">
-          <label for="nationid" class="form-label">Nation ID *</label>
-          <input type="number" class="form-control" id="nationid" placeholder="Nation ID" aria-describedby="nationid" pattern="^\d+$" required>
-          <div class="valid-feedback">
-            Looks good!
-          </div>
-          <div class="invalid-feedback">
-            Please enter a nation ID.
-          </div>
-        </div>
         <div class="mb-3">
             <label for="allianceid" class="form-label">Alliance ID *</label>
             <select class="js-example-basic-single" id="allianceid" style="width: 100%;" name="allianceid" required>
@@ -493,10 +483,6 @@
           </div>
         </div>
         <div class="mb-3">
-          <div class="form-check form-check-inline">
-            <input class="form-check-input" type="checkbox" id="checkboxNationID" name="remember" value="nationID">
-            <label class="form-check-label" for="checkboxNationID">Remember my nation ID</label>
-          </div>
           <div class="form-check form-check-inline">
             <input class="form-check-input" type="checkbox" id="checkboxAlliance" name="remember" value="allianceID">
             <label class="form-check-label" for="checkboxAlliance">Remember my Alliance</label>
