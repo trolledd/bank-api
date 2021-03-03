@@ -55,19 +55,86 @@ checkboxes.forEach(checkbox => {
   });
 });
 
+let bankTransactAppendEach = function (resourcesObject) {
+  bankTransactHTML =
+    `
+  <div id="tableDiv">
+  <h3 class="pt-3 pb-2">Results: </h3>
+  <table class="table table-hover pt-3">
+    <thead>
+      <tr>
+        <th scope="col">Nation ID</th>
+        <th scope="col">Alliance ID</th>
+        <th scope="col">Money</th>
+        <th scope="col">Coal</th>
+        <th scope="col">Oil</th>
+        <th scope="col">Uranium</th>
+        <th scope="col">Iron</th>
+        <th scope="col">Bauxite</th>
+        <th scope="col">Lead</th>
+        <th scope="col">Gasoline</th>
+        <th scope="col">Muniton</th>
+        <th scope="col">Steel</th>
+        <th scope="col">Aluminum</th>
+        <th scope="col">Food</th>
+      </tr>
+    </thead>
+    <tbody>
+  `
+  for (let y = 0; y < resourcesObject.length; y++) {
+    let key = Object.keys(resourcesObject[y])
+    bankTransactHTML +=
+      `
+    <tr>
+          <th scope="row">${key}</th>
+          <td>${alliance_id}</td>
+          <td>${resourcesObject[y][key].money}</td>
+          <td>${resourcesObject[y][key].coal}</td>
+          <td>${resourcesObject[y][key].oil}</td>
+          <td>${resourcesObject[y][key].uranium}</td>
+          <td>${resourcesObject[y][key].iron}</td>
+          <td>${resourcesObject[y][key].bauxite}</td>
+          <td>${resourcesObject[y][key].lead}</td>
+          <td>${resourcesObject[y][key].gasoline}</td>
+          <td>${resourcesObject[y][key].muniton}</td>
+          <td>${resourcesObject[y][key].steel}</td>
+          <td>${resourcesObject[y][key].aluminum}</td>
+          <td>${resourcesObject[y][key].food}</td>
+        </tr>
+    `
+  }
 
-let getMemberCount = new Promise((resolve, reject) => {
-  fetch(`https://run.mocky.io/v3/1dfb79ff-4eb1-4b10-84e4-30c86156211c`, {
-    method: 'GET',
+
+  bankTransactHTML +=
+    `
+  </tbody>
+  </table>
+</div>
+  `
+  return bankTransactHTML;
+}
+
+let bankTransactAppend = function (resourcesObject) {
+  return new Promise(async (resolve, reject) => {
+    await bankTransactAppendEach(resourcesObject);
+    resolve(bankTransactHTML);
   })
-    .then(response => response.json())
-    .then(data => {
-      for (let x = 0; x < data.data.length; x++) {
-        nationList.push(data.data[x].nation_id);
-      }
-      resolve(nationList)
+}
+let getMemberCount = function (alliance_id) {
+  return new Promise((resolve, reject) => {
+    fetch(`https://pnw-bankapi.herokuapp.com/noOfMembers/allianceid=${alliance_id}`, {
+      method: 'GET',
     })
-})
+      .then(response => response.json())
+      .then(data => {
+        nationList = [];
+        for (let x = 0; x < data.data.length; x++) {
+          nationList.push(data.data[x].nation_id);
+        }
+        resolve(nationList)
+      })
+  })
+}
 
 let fetchBankTransact = function (nationID) {
   return fetch(`https://pnw-bankapi.herokuapp.com/memberAndAlliance/nationid=${nationID}`, {
@@ -83,6 +150,7 @@ let fetchBankTransact = function (nationID) {
 
 let getBankTransact = function (results) {
   return new Promise(async (resolve, reject) => {
+    bankTransaction = [];
     for (let result in results) {
       await fetchBankTransact(results[result])
     }
@@ -123,10 +191,11 @@ $(document).on('submit', '#bank-form', function () {
   Object.keys(resources).forEach(v => resources[v] = 0)
 
 
-  getMemberCount.then((results) => {
+  getMemberCount(alliance_id).then((results) => {
     return getBankTransact(results)
   })
     .then(() => {
+      resources = []
       for (let x = 0; x < bankTransaction.length; x++) {
         var bankObj = {}
         bankObj[Object.keys(bankTransaction[x])] = {
@@ -146,49 +215,58 @@ $(document).on('submit', '#bank-form', function () {
         resources.push(bankObj);
       }
 
-      console.log(bankTransaction)
-      console.log(resources)
-      for(let y = 0; y < bankTransaction.length; y++){
+      for (let y = 0; y < bankTransaction.length; y++) {
         let key = Object.keys(bankTransaction[y]) //nationid
         let bankTransactData = bankTransaction[y][key].data //all Transaction by user 0
         insertKey = resources[y][key] //just the summarised value for user 0
-        for(let x = 0; x < bankTransaction[y][key].data.length; x++){
-            if (bankTransactData[x].receiver_id == key && bankTransactData[x].sender_id == alliance_id) {
-                //[money, coal, oil, uranium, iron, bauxite, lead, gasoline, muniton, steel, aluminum, food]
-                insertKey.money += bankTransactData[x].money;
-                insertKey.coal += bankTransactData[x].coal;
-                insertKey.oil += bankTransactData[x].oil;
-                insertKey.uranium += bankTransactData[x].uranium;
-                insertKey.iron += bankTransactData[x].iron;
-                insertKey.bauxite += bankTransactData[x].bauxite;
-                insertKey.lead += bankTransactData[x].lead;
-                insertKey.gasoline += bankTransactData[x].gasoline;
-                insertKey.muniton += bankTransactData[x].munitions;
-                insertKey.steel += bankTransactData[x].steel;
-                insertKey.aluminum += bankTransactData[x].aluminum;
-                insertKey.food += bankTransactData[x].food;
-              }
-              //nation is sender, alliance is receiver
-              else if (bankTransactData[x].sender_id == key && bankTransactData[x].receiver_id == alliance_id) {
-                insertKey.money -= bankTransactData[x].money;
-                insertKey.coal -= bankTransactData[x].coal;
-                insertKey.oil -= bankTransactData[x].oil;
-                insertKey.uranium -= bankTransactData[x].uranium;
-                insertKey.iron -= bankTransactData[x].iron;
-                insertKey.bauxite -= bankTransactData[x].bauxite;
-                insertKey.lead -= bankTransactData[x].lead;
-                insertKey.gasoline -= bankTransactData[x].gasoline;
-                insertKey.muniton -= bankTransactData[x].munitions;
-                insertKey.steel -= bankTransactData[x].steel;
-                insertKey.aluminum -= bankTransactData[x].aluminum;
-                insertKey.food -= bankTransactData[x].food;
-              }
-              for (let resource in insertKey) {
-                insertKey[resource] = Math.round(insertKey[resource] * 100) / 100
-              }
-        } 
-        console.log(key)
-        console.log(insertKey)
-    } 
+        for (let x = 0; x < bankTransaction[y][key].data.length; x++) {
+          if (bankTransactData[x].receiver_id == key && bankTransactData[x].sender_id == alliance_id) {
+            //[money, coal, oil, uranium, iron, bauxite, lead, gasoline, muniton, steel, aluminum, food]
+            insertKey.money += bankTransactData[x].money;
+            insertKey.coal += bankTransactData[x].coal;
+            insertKey.oil += bankTransactData[x].oil;
+            insertKey.uranium += bankTransactData[x].uranium;
+            insertKey.iron += bankTransactData[x].iron;
+            insertKey.bauxite += bankTransactData[x].bauxite;
+            insertKey.lead += bankTransactData[x].lead;
+            insertKey.gasoline += bankTransactData[x].gasoline;
+            insertKey.muniton += bankTransactData[x].munitions;
+            insertKey.steel += bankTransactData[x].steel;
+            insertKey.aluminum += bankTransactData[x].aluminum;
+            insertKey.food += bankTransactData[x].food;
+          }
+          //nation is sender, alliance is receiver
+          else if (bankTransactData[x].sender_id == key && bankTransactData[x].receiver_id == alliance_id) {
+            insertKey.money -= bankTransactData[x].money;
+            insertKey.coal -= bankTransactData[x].coal;
+            insertKey.oil -= bankTransactData[x].oil;
+            insertKey.uranium -= bankTransactData[x].uranium;
+            insertKey.iron -= bankTransactData[x].iron;
+            insertKey.bauxite -= bankTransactData[x].bauxite;
+            insertKey.lead -= bankTransactData[x].lead;
+            insertKey.gasoline -= bankTransactData[x].gasoline;
+            insertKey.muniton -= bankTransactData[x].munitions;
+            insertKey.steel -= bankTransactData[x].steel;
+            insertKey.aluminum -= bankTransactData[x].aluminum;
+            insertKey.food -= bankTransactData[x].food;
+          }
+          for (let resource in insertKey) {
+            insertKey[resource] = Math.round(insertKey[resource] * 100) / 100
+          }
+        }
+        /* console.log(key)
+        console.log(insertKey) */
+      }
+      
+        //Positive means nations owe debt to alliance, vice versa
+        // $('#bank-records-main').addClass('d-none');
+        $('.spinner-grow').addClass('d-none');
+        $('#btn-submit').removeClass('d-none');
+        bankTransactAppend(resources)
+          .then((result) => {
+            $("#container-main").append($(result));
+            
+            // console.log(result)
+          })
     })
-  });
+});
