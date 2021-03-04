@@ -160,3 +160,78 @@
         })
         
         */
+
+        
+let bankTransactAppendEach = function (resourcesObject) {
+  bankTransactHTML =
+    `
+  <div id="tableDiv">
+  <h3 class="pt-3 pb-2">Results: </h3>
+  <table class="table table-hover pt-3">
+    <thead>
+      <tr>
+        <th scope="col">Nation ID</th>
+        <th scope="col">Alliance ID</th>
+        <th scope="col">Money</th>
+        <th scope="col">Coal</th>
+        <th scope="col">Oil</th>
+        <th scope="col">Uranium</th>
+        <th scope="col">Iron</th>
+        <th scope="col">Bauxite</th>
+        <th scope="col">Lead</th>
+        <th scope="col">Gasoline</th>
+        <th scope="col">Muniton</th>
+        <th scope="col">Steel</th>
+        <th scope="col">Aluminum</th>
+        <th scope="col">Food</th>
+      </tr>
+    </thead>
+    <tbody>
+  `
+  for (let y = 0; y < resourcesObject.length; y++) {
+    let key = Object.keys(resourcesObject[y])
+    bankTransactHTML +=
+      `
+    <tr>
+          <th scope="row">${key}</th>
+          <td>${alliance_id}</td>
+          <td>${resourcesObject[y][key].money}</td>
+          <td>${resourcesObject[y][key].coal}</td>
+          <td>${resourcesObject[y][key].oil}</td>
+          <td>${resourcesObject[y][key].uranium}</td>
+          <td>${resourcesObject[y][key].iron}</td>
+          <td>${resourcesObject[y][key].bauxite}</td>
+          <td>${resourcesObject[y][key].lead}</td>
+          <td>${resourcesObject[y][key].gasoline}</td>
+          <td>${resourcesObject[y][key].muniton}</td>
+          <td>${resourcesObject[y][key].steel}</td>
+          <td>${resourcesObject[y][key].aluminum}</td>
+          <td>${resourcesObject[y][key].food}</td>
+        </tr>
+    `
+  }
+
+
+  bankTransactHTML +=
+    `
+  </tbody>
+  </table>
+</div>
+  `
+  return bankTransactHTML;
+}
+
+let bankTransactAppend = function (resourcesObject) {
+  return new Promise(async (resolve, reject) => {
+    await bankTransactAppendEach(resourcesObject);
+    resolve(bankTransactHTML);
+  })
+}
+
+
+        /* bankTransactAppend(resources)
+          .then((result) => {
+            $("#container-main").append($(result));
+            
+            // console.log(result)
+          }) */

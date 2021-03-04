@@ -55,71 +55,6 @@ checkboxes.forEach(checkbox => {
   });
 });
 
-let bankTransactAppendEach = function (resourcesObject) {
-  bankTransactHTML =
-    `
-  <div id="tableDiv">
-  <h3 class="pt-3 pb-2">Results: </h3>
-  <table class="table table-hover pt-3">
-    <thead>
-      <tr>
-        <th scope="col">Nation ID</th>
-        <th scope="col">Alliance ID</th>
-        <th scope="col">Money</th>
-        <th scope="col">Coal</th>
-        <th scope="col">Oil</th>
-        <th scope="col">Uranium</th>
-        <th scope="col">Iron</th>
-        <th scope="col">Bauxite</th>
-        <th scope="col">Lead</th>
-        <th scope="col">Gasoline</th>
-        <th scope="col">Muniton</th>
-        <th scope="col">Steel</th>
-        <th scope="col">Aluminum</th>
-        <th scope="col">Food</th>
-      </tr>
-    </thead>
-    <tbody>
-  `
-  for (let y = 0; y < resourcesObject.length; y++) {
-    let key = Object.keys(resourcesObject[y])
-    bankTransactHTML +=
-      `
-    <tr>
-          <th scope="row">${key}</th>
-          <td>${alliance_id}</td>
-          <td>${resourcesObject[y][key].money}</td>
-          <td>${resourcesObject[y][key].coal}</td>
-          <td>${resourcesObject[y][key].oil}</td>
-          <td>${resourcesObject[y][key].uranium}</td>
-          <td>${resourcesObject[y][key].iron}</td>
-          <td>${resourcesObject[y][key].bauxite}</td>
-          <td>${resourcesObject[y][key].lead}</td>
-          <td>${resourcesObject[y][key].gasoline}</td>
-          <td>${resourcesObject[y][key].muniton}</td>
-          <td>${resourcesObject[y][key].steel}</td>
-          <td>${resourcesObject[y][key].aluminum}</td>
-          <td>${resourcesObject[y][key].food}</td>
-        </tr>
-    `
-  }
-
-
-  bankTransactHTML +=
-    `
-  </tbody>
-  </table>
-</div>
-  `
-  return bankTransactHTML;
-}
-
-let bankTransactAppend = function (resourcesObject) {
-  return new Promise(async (resolve, reject) => {
-    await bankTransactAppendEach(resourcesObject);
-    resolve(bankTransactHTML);
-  })
-}
 let getMemberCount = function (alliance_id) {
   return new Promise((resolve, reject) => {
     fetch(`https://pnw-bankapi.herokuapp.com/noOfMembers/allianceid=${alliance_id}`, {
@@ -197,10 +132,11 @@ $(document).on('submit', '#bank-form', function () {
     .then(() => {
       resources = []
       for (let x = 0; x < bankTransaction.length; x++) {
-        var bankObj = {}
-        bankObj[Object.keys(bankTransaction[x])] = {
-          money: 0,
-          coal: 0,
+        var bankObj = {} 
+        bankObj = {
+          nationID: nationList[x],
+          money: 0, 
+          coal: 0, 
           oil: 0,
           uranium: 0,
           bauxite: 0,
@@ -213,12 +149,12 @@ $(document).on('submit', '#bank-form', function () {
           food: 0
         };
         resources.push(bankObj);
-      }
+      } 
 
       for (let y = 0; y < bankTransaction.length; y++) {
         let key = Object.keys(bankTransaction[y]) //nationid
         let bankTransactData = bankTransaction[y][key].data //all Transaction by user 0
-        insertKey = resources[y][key] //just the summarised value for user 0
+        insertKey = resources[y]//just the summarised value for user 0
         for (let x = 0; x < bankTransaction[y][key].data.length; x++) {
           if (bankTransactData[x].receiver_id == key && bankTransactData[x].sender_id == alliance_id) {
             //[money, coal, oil, uranium, iron, bauxite, lead, gasoline, muniton, steel, aluminum, food]
@@ -254,19 +190,115 @@ $(document).on('submit', '#bank-form', function () {
             insertKey[resource] = Math.round(insertKey[resource] * 100) / 100
           }
         }
-        /* console.log(key)
-        console.log(insertKey) */
       }
-      
+
         //Positive means nations owe debt to alliance, vice versa
         // $('#bank-records-main').addClass('d-none');
         $('.spinner-grow').addClass('d-none');
         $('#btn-submit').removeClass('d-none');
-        bankTransactAppend(resources)
-          .then((result) => {
-            $("#container-main").append($(result));
-            
-            // console.log(result)
-          })
+
+        $("#container-main").append(
+          `
+          <div id="tableDiv">
+                <h3 class="pt-3 mb-0">Results: </h3>
+                <div id="toolbar" class="select">
+                  <select class="form-control">
+                    <option value="">Export Basic</option>
+                    <option value="all">Export All</option>
+                    <option value="selected">Export Selected</option>
+                  </select>
+                </div>
+  
+              <h3 class="pt-3">Bank Transaction(s): </h3>
+              <table id="table"
+              data-search="true"
+                data-sortable="true"
+                data-show-export="true"
+                data-pagination="true"
+                data-click-to-select="true"
+                data-toolbar="#toolbar"
+                data-show-toggle="true"
+                data-show-columns="true"
+                data-show-jump-to="true"
+                data-reorderable-columns="true"
+                >
+              </table>
+              </div>
+                `
+        );
+
+        var $table = $('#table')
+          console.log(resources)
+        $(function () {
+          $('#toolbar').find('select').change(function () {
+            var data = resources
+            $table.bootstrapTable('destroy').bootstrapTable({
+              exportDataType: $(this).val(),
+              exportTypes: ['json', 'xml', 'csv', 'txt', 'sql', 'excel', 'pdf'],
+              columns: [
+                {
+                  field: 'state',
+                  checkbox: true,
+                  visible: $(this).val() === 'selected'
+                },
+                {
+                  field: 'nationID',
+                  title: 'Nation ID',
+                  sortable: true
+                }, {
+                  field: 'money',
+                  title: 'Money',
+                  sortable: true
+                }, {
+                  field: 'coal',
+                  title: 'Coal',
+                  sortable: true
+                }, {
+                  field: 'oil',
+                  title: 'Oil',
+                  sortable: true
+                }, {
+                  field: 'uranium',
+                  title: 'Uranium',
+                  sortable: true
+                }, {
+                  field: 'bauxite',
+                  title: 'Bauxite',
+                  sortable: true
+                }, {
+                  field: 'iron',
+                  title: 'Iron',
+                  sortable: true
+                }, {
+                  field: 'lead',
+                  title: 'Lead',
+                  sortable: true
+                }, {
+                  field: 'gasoline',
+                  title: 'Gasoline',
+                  sortable: true
+                }, {
+                  field: 'muniton',
+                  title: 'Munition',
+                  sortable: true
+                }, {
+                  field: 'steel',
+                  title: 'Steel',
+                  sortable: true
+                }, {
+                  field: 'aluminum',
+                  title: 'Aluminum',
+                  sortable: true
+                }, {
+                  field: 'food',
+                  title: 'Food',
+                  sortable: true
+                }
+              ],
+              data: data
+            })
+          }).trigger('change')
+        })
+
     })
 });
