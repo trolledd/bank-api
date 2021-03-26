@@ -4,7 +4,7 @@ Bank-API is API tool for game Politics & War. It is a static website hosted on g
 * Not very aesthetically pleasing landing page.
 * A mediocrely-made Bank API that currently allows singular search.
 * A mediocrely-made Alliance API that displays all debts owed by the alliance members.
-* 
+
 # Who uses this website?
 Mainly for alliance leaders who intend to micro manage the alliance. Alliance members can utilise it so as to pay up potential debts.
 
